@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Productos Académicos{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">📘 Productos Académicos</h2>
+
+{% if productos %}
+
+{% for p in productos %}
+<div class="card mb-3 shadow-sm">
+    <div class="card-body">
+
+        <div class="row">
+
+            <!-- ================= IZQUIERDA: INFORMACIÓN ================= -->
+            <div class="col-md-8">
+
+                <!-- NOMBRE DEL RECURSO -->
+                <h5 class="mb-3 text-primary fw-bold">
+                    {{ p.nombrerecurso }}
+                </h5>
+
+                <!-- DESCRIPCIÓN -->
+                {% if p.descripcion %}
+                <p class="mt-2">
+                    <strong>Descripción:</strong><br>
+                    {{ p.descripcion }}
+                </p>
+                {% endif %}
+
+                <!-- CLASIFICADOR -->
+                {% if p.clasificador %}
+                <p class="mb-0">
+                    <strong>Clasificador:</strong>
+                    {{ p.clasificador }}
+                </p>
+                {% endif %}
+
+            </div>
+
+            <!-- ================= DERECHA: IMAGEN CLOUDINARY ================= -->
+            {% if p.url_recurso %}
+            <div class="col-md-4 text-center">
+                <img 
+                    src="{{ p.url_recurso }}" 
+                    alt="Recurso académico"
+                    class="img-fluid rounded shadow-sm"
+                    style="max-width: 140px;"
+                >
+            </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+</div>
+{% endfor %}
+
+{% else %}
+<p>No hay productos académicos.</p>
+{% endif %}
+
+{% endblock %}

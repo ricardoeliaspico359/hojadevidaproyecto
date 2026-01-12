@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Productos Laborales{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">🛠️ Productos Laborales</h2>
+
+{% if productos %}
+<ul class="list-group">
+
+    {% for p in productos %}
+    <li class="list-group-item mb-3 shadow-sm">
+
+        <!-- NOMBRE DEL PRODUCTO (estilo aplicado solo aquí) -->
+        <h5 class="mb-3 text-primary fw-bold">
+            {{ p.nombreproducto }}
+        </h5>
+
+        {% if p.descripcion %}
+        <p>{{ p.descripcion }}</p>
+        {% endif %}
+
+        <p>
+            <strong>Fecha:</strong> {{ p.fechaproducto }}
+        </p>
+
+    </li>
+    {% endfor %}
+
+</ul>
+{% else %}
+<p>No hay productos laborales.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Experiencia Laboral{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">💼 Experiencia Laboral</h2>
+
+{% if experiencias %}
+<ul class="list-group">
+
+    {% for exp in experiencias %}
+    <li class="list-group-item mb-4 shadow-sm">
+
+        <!-- CARGO (COLOR CELESTE) -->
+        <h5 class="mb-3 text-primary fw-bold">
+            {{ exp.cargodesempenado }}
+        </h5>
+
+        <div class="row">
+
+            <!-- ================= IZQUIERDA ================= -->
+            <div class="col-md-6">
+
+                <p><strong>Empresa:</strong> {{ exp.nombrempresa }}</p>
+
+                {% if exp.lugarempresa %}
+                <p><strong>Lugar:</strong> {{ exp.lugarempresa }}</p>
+                {% endif %}
+
+                <p>
+                    <strong>Periodo:</strong>
+                    {{ exp.fechainiciogestion }}
+                    {% if exp.fechafingestion %}
+                        - {{ exp.fechafingestion }}
+                    {% else %}
+                        - Actualidad
+                    {% endif %}
+                </p>
+
+                {% if exp.descripcionfunciones %}
+                <p>
+                    <strong>Funciones:</strong><br>
+                    {{ exp.descripcionfunciones }}
+                </p>
+                {% endif %}
+
+            </div>
+
+            <!-- ================= DIVISIÓN ================= -->
+            <div class="col-md-1 d-none d-md-flex justify-content-center">
+                <div style="width:1px; background:#dee2e6;"></div>
+            </div>
+
+            <!-- ================= DERECHA ================= -->
+            <div class="col-md-5">
+
+                {% if exp.emailempresa %}
+                <p><strong>Email empresa:</strong> {{ exp.emailempresa }}</p>
+                {% endif %}
+
+                {% if exp.sitiowebempresa %}
+                <p>
+                    <strong>Sitio web:</strong>
+                    <a href="{{ exp.sitiowebempresa }}" target="_blank">
+                        {{ exp.sitiowebempresa }}
+                    </a>
+                </p>
+                {% endif %}
+
+                {% if exp.nombrecontactoempresarial %}
+                <p><strong>Contacto:</strong> {{ exp.nombrecontactoempresarial }}</p>
+                {% endif %}
+
+                {% if exp.telefonocontactoempresarial %}
+                <p><strong>Teléfono contacto:</strong> {{ exp.telefonocontactoempresarial }}</p>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </li>
+    {% endfor %}
+
+</ul>
+{% else %}
+<p>No hay experiencia registrada.</p>
+{% endif %}
+
+{% endblock %}

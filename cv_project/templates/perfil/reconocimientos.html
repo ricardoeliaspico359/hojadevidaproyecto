@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Reconocimientos{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">🏆 Reconocimientos</h2>
+
+{% if reconocimientos %}
+<div class="row">
+
+    {% for r in reconocimientos %}
+    <div class="col-12 mb-4">
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body">
+
+                <!-- TIPO DE RECONOCIMIENTO -->
+                <h5 class="mb-3 text-primary fw-bold">
+                    <strong>Tipo de reconocimiento:</strong> {{ r.tiporeconocimiento }}
+                </h5>
+
+                <!-- DESCRIPCIÓN DEL RECONOCIMIENTO -->
+                {% if r.descripcionreconocimiento %}
+                <p class="mb-3">
+                    <strong>Descripción del reconocimiento:</strong><br>
+                    {{ r.descripcionreconocimiento }}
+                </p>
+                {% endif %}
+
+                <!-- DATOS EN DOS COLUMNAS -->
+                <div class="row">
+
+                    <!-- IZQUIERDA -->
+                    <div class="col-md-6">
+                        <p class="mb-2">
+                            <strong>Fecha del reconocimiento:</strong><br>
+                            {{ r.fechareconocimiento }}
+                        </p>
+
+                        {% if r.entidadpatrocinadora %}
+                        <p class="mb-2">
+                            <strong>Entidad patrocinadora:</strong><br>
+                            {{ r.entidadpatrocinadora }}
+                        </p>
+                        {% endif %}
+                    </div>
+
+                    <!-- LÍNEA DIVISORIA -->
+                    <div class="col-md-6 border-start ps-4">
+                        {% if r.nombrecontactoauspicia %}
+                        <p class="mb-2">
+                            <strong>Nombre del contacto que auspicia:</strong><br>
+                            {{ r.nombrecontactoauspicia }}
+                        </p>
+                        {% endif %}
+
+                        {% if r.telefonocontactoauspicia %}
+                        <p class="mb-2">
+                            <strong>Teléfono del contacto:</strong><br>
+                            {{ r.telefonocontactoauspicia }}
+                        </p>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                <!-- CERTIFICADO / DIPLOMA -->
+                {% if r.rutacertificado %}
+                <hr class="my-3">
+
+                <p class="mb-2">
+                    <strong>Certificado / Diploma:</strong>
+                </p>
+
+                <img
+                    src="{{ r.rutacertificado }}"
+                    alt="Certificado del reconocimiento"
+                    class="img-fluid rounded border"
+                    style="max-width: 400px;"
+                >
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% else %}
+<p>No hay reconocimientos registrados.</p>
+{% endif %}
+
+{% endblock %}

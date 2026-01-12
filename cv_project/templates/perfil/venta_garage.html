@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Venta Garage{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">🛒 Venta Garage</h2>
+
+{% if productos %}
+<div class="row">
+
+    {% for p in productos %}
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+
+                <!-- NOMBRE DEL PRODUCTO (estilo aplicado solo aquí) -->
+                <h5 class="card-title mb-3 text-primary fw-bold">
+                    {{ p.nombreproducto }}
+                </h5>
+
+                {% if p.descripcion %}
+                <p class="card-text">{{ p.descripcion }}</p>
+                {% endif %}
+
+                <p>
+                    <span class="badge bg-secondary">
+                        {{ p.estadoproducto }}
+                    </span>
+                </p>
+
+                <p>
+                    <strong>Precio:</strong> ${{ p.valordelbien }}
+                </p>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% else %}
+<p>No hay productos en venta.</p>
+{% endif %}
+{% endblock %}
