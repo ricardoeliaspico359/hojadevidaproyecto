@@ -33,7 +33,6 @@ td {
     text-align: center;
 }
 
-/* FOTO PERFIL */
 .photo {
     width: 110px;
     height: 110px;
@@ -97,28 +96,31 @@ td {
 .block-title {
     font-weight: bold;
     font-size: 14px;
-    margin-bottom: 1px;
 }
 
 .block-sub {
     font-size: 13px;
     color: #555;
-    margin-bottom: 0;
-    line-height: 1.1;
-}
-
-.right div {
-    font-size: 13.5px;
-    line-height: 1.15;
 }
 
 .label {
     font-weight: bold;
 }
 
-/* ===== SALTO DE PÁGINA ===== */
+/* ===== SALTOS ===== */
 .page-break {
     page-break-before: always;
+}
+
+/* ===== PÁGINA CERTIFICADO ===== */
+.cert-page {
+    text-align: center;
+    padding: 40px;
+}
+
+.cert-page img {
+    width: 90%;
+    height: auto;
 }
 </style>
 </head>
@@ -128,7 +130,6 @@ td {
 <!-- ================= PÁGINA 1 ================= -->
 <table>
 <tr>
-
 <td class="left">
 {% if datos.foto_url %}
 <div class="photo">
@@ -140,7 +141,6 @@ td {
 <div class="subtitle">{{ datos.descripcionperfil }}</div>
 
 <div class="section-title-left">Datos Personales</div>
-
 <div class="item"><strong>Cédula:</strong> {{ datos.numerocedula }}</div>
 <div class="item"><strong>Nacionalidad:</strong> {{ datos.nacionalidad }}</div>
 <div class="item"><strong>Lugar nacimiento:</strong> {{ datos.lugarnacimiento }}</div>
@@ -158,39 +158,8 @@ td {
 {% for e in experiencias %}
 <div class="block">
     <div class="block-title">{{ e.cargodesempenado }} – {{ e.nombrempresa }}</div>
-
-    {% if e.lugarempresa %}
-    <div class="block-sub"><span class="label">Lugar de la empresa:</span> {{ e.lugarempresa }}</div>
-    {% endif %}
-
-    <div class="block-sub">
-        <span class="label">Fecha inicio de gestión:</span> {{ e.fechainiciogestion }}
-        {% if e.fechafingestion %}
-        | <span class="label">Fecha fin de gestión:</span> {{ e.fechafingestion }}
-        {% else %}
-        | <span class="label">Estado:</span> Actualidad
-        {% endif %}
-    </div>
-
-    {% if e.descripcionfunciones %}
-    <div><span class="label">Descripción de funciones:</span> {{ e.descripcionfunciones }}</div>
-    {% endif %}
-
-    {% if e.emailempresa %}
-    <div><span class="label">Email de la empresa:</span> {{ e.emailempresa }}</div>
-    {% endif %}
-
-    {% if e.sitiowebempresa %}
-    <div><span class="label">Sitio web de la empresa:</span> {{ e.sitiowebempresa }}</div>
-    {% endif %}
-
-    {% if e.nombrecontactoempresarial %}
-    <div><span class="label">Nombre del contacto empresarial:</span> {{ e.nombrecontactoempresarial }}</div>
-    {% endif %}
-
-    {% if e.telefonocontactoempresarial %}
-    <div><span class="label">Teléfono del contacto empresarial:</span> {{ e.telefonocontactoempresarial }}</div>
-    {% endif %}
+    <div class="block-sub">{{ e.fechainiciogestion }} - {{ e.fechafingestion|default:"Actualidad" }}</div>
+    <div>{{ e.descripcionfunciones }}</div>
 </div>
 {% empty %}
 <div>No registra experiencia laboral</div>
@@ -200,39 +169,10 @@ td {
 {% for c in cursos %}
 <div class="block">
     <div class="block-title">{{ c.nombrecurso }}</div>
-
     <div class="block-sub">
-        <span class="label">Fecha inicio:</span> {{ c.fechainicio }}
-        {% if c.fechafin %}| <span class="label">Fecha fin:</span> {{ c.fechafin }}{% endif %}
-        | <span class="label">Total de horas:</span> {{ c.totalhoras }}
+        {{ c.fechainicio }} - {{ c.fechafin }} | {{ c.totalhoras }} horas
     </div>
-
-    {% if c.descripcioncurso %}
-    <div><span class="label">Descripción del curso:</span> {{ c.descripcioncurso }}</div>
-    {% endif %}
-
-    {% if c.entidadpatrocinadora %}
-    <div><span class="label">Entidad patrocinadora:</span> {{ c.entidadpatrocinadora }}</div>
-    {% endif %}
-
-    {% if c.nombrecontactoauspicia %}
-    <div><span class="label">Nombre del contacto que auspicia:</span> {{ c.nombrecontactoauspicia }}</div>
-    {% endif %}
-
-    {% if c.telefonocontactoauspicia %}
-    <div><span class="label">Teléfono del contacto:</span> {{ c.telefonocontactoauspicia }}</div>
-    {% endif %}
-
-    {% if c.emailempresapatrocinadora %}
-    <div><span class="label">Email de la entidad patrocinadora:</span> {{ c.emailempresapatrocinadora }}</div>
-    {% endif %}
-
-    {% if c.rutacertificado %}
-    <div style="margin-top:4px;">
-        <span class="label">Certificado:</span><br>
-        <img src="{{ c.rutacertificado }}" width="260" style="border:1px solid #999;">
-    </div>
-    {% endif %}
+    <div>{{ c.descripcioncurso }}</div>
 </div>
 {% empty %}
 <div>No registra cursos</div>
@@ -247,132 +187,51 @@ td {
 <!-- ================= PÁGINA 2 ================= -->
 <table>
 <tr>
-
 <td class="left">
-<!-- MISMA COLUMNA IZQUIERDA (SIN CAMBIOS) -->
 {% if datos.foto_url %}
-<div class="photo">
-    <img src="{{ datos.foto_url }}">
-</div>
+<div class="photo"><img src="{{ datos.foto_url }}"></div>
 {% endif %}
-
 <div class="name">{{ datos.nombres }} {{ datos.apellidos }}</div>
-<div class="subtitle">{{ datos.descripcionperfil }}</div>
-
-<div class="section-title-left">Datos Personales</div>
-
-<div class="item"><strong>Cédula:</strong> {{ datos.numerocedula }}</div>
-<div class="item"><strong>Nacionalidad:</strong> {{ datos.nacionalidad }}</div>
-<div class="item"><strong>Lugar nacimiento:</strong> {{ datos.lugarnacimiento }}</div>
-<div class="item"><strong>Fecha nacimiento:</strong> {{ datos.fechanacimiento }}</div>
-<div class="item"><strong>Sexo:</strong> {{ datos.get_sexo_display }}</div>
-<div class="item"><strong>Estado civil:</strong> {{ datos.estadocivil }}</div>
-<div class="item"><strong>Licencia:</strong> {{ datos.licenciaconducir }}</div>
-<div class="item"><strong>Teléfono:</strong> {{ datos.telefonoconvencional }}</div>
-<div class="item"><strong>Dirección:</strong> {{ datos.direcciondomiciliaria }}</div>
 </td>
 
 <td class="right">
 
-<!-- TODO LO DEMÁS: RECONOCIMIENTOS, PRODUCTOS, VENTA -->
-<!-- (CONTENIDO EXACTAMENTE IGUAL AL ORIGINAL) -->
-
-<!-- aquí continúa tal cual tu código original -->
-
-
-<!-- ================= RECONOCIMIENTOS ================= -->
 <div class="section-title">Reconocimientos</div>
 {% for r in reconocimientos %}
 <div class="block">
-
-    <div class="block-title">
-        <span class="label">Tipo de reconocimiento:</span> {{ r.tiporeconocimiento }}
-    </div>
-
-    <div class="block-sub">
-        <span class="label">Fecha del reconocimiento:</span> {{ r.fechareconocimiento }}
-    </div>
-
-    {% if r.descripcionreconocimiento %}
-    <div><span class="label">Descripción del reconocimiento:</span> {{ r.descripcionreconocimiento }}</div>
-    {% endif %}
-
-    {% if r.entidadpatrocinadora %}
-    <div><span class="label">Entidad patrocinadora:</span> {{ r.entidadpatrocinadora }}</div>
-    {% endif %}
-
-    {% if r.nombrecontactoauspicia %}
-    <div><span class="label">Nombre del contacto que auspicia:</span> {{ r.nombrecontactoauspicia }}</div>
-    {% endif %}
-
-    {% if r.telefonocontactoauspicia %}
-    <div><span class="label">Teléfono del contacto:</span> {{ r.telefonocontactoauspicia }}</div>
-    {% endif %}
-
-    {% if r.rutacertificado %}
-    <div style="margin-top:4px;">
-        <span class="label">Certificado / Diploma:</span><br>
-        <img src="{{ r.rutacertificado }}" width="260" style="border:1px solid #999;">
-    </div>
-    {% endif %}
-
+    <div class="block-title">{{ r.tiporeconocimiento }}</div>
+    <div class="block-sub">{{ r.fechareconocimiento }}</div>
+    <div>{{ r.descripcionreconocimiento }}</div>
 </div>
 {% empty %}
 <div>No registra reconocimientos</div>
 {% endfor %}
 
-<!-- ================= PRODUCTOS ACADÉMICOS ================= -->
-<div class="section-title">Productos Académicos</div>
-{% for pa in prod_academicos %}
-<div class="block">
-
-    <div class="block-title">
-        <span class="label">Nombre del recurso:</span> {{ pa.nombrerecurso }}
-    </div>
-
-    {% if pa.descripcion %}
-    <div>
-        <span class="label">Descripción:</span> {{ pa.descripcion }}
-    </div>
-    {% endif %}
-
-    {% if pa.clasificador %}
-    <div>
-        <span class="label">Clasificador:</span> {{ pa.clasificador }}
-    </div>
-    {% endif %}
-
-</div>
-{% empty %}
-<div>No registra productos académicos</div>
-{% endfor %}
-<!-- ================= PRODUCTOS LABORALES ================= -->
-<div class="section-title">Productos Laborales</div>
-{% for pl in prod_laborales %}
-<div class="block">
-    <div class="block-title">{{ pl.nombreproducto }}</div>
-    <div>{{ pl.descripcion }}</div>
-</div>
-{% empty %}
-<div>No registra productos laborales</div>
-{% endfor %}
-
-<!-- ================= VENTA GARAGE ================= -->
-<div class="section-title">Venta Garage</div>
-{% for v in ventas %}
-<div class="block">
-    <div class="block-title">
-        {{ v.nombreproducto }} – ${{ v.valordelbien }}
-    </div>
-    <div>{{ v.estadoproducto }} | {{ v.descripcion }}</div>
-</div>
-{% empty %}
-<div>No registra ventas</div>
-{% endfor %}
-
 </td>
 </tr>
 </table>
+
+<!-- ================= CERTIFICADOS CURSOS ================= -->
+{% for c in cursos %}
+{% if c.rutacertificado %}
+<div class="page-break"></div>
+<div class="cert-page">
+    <h2>Certificado – {{ c.nombrecurso }}</h2>
+    <img src="{{ c.rutacertificado }}">
+</div>
+{% endif %}
+{% endfor %}
+
+<!-- ================= CERTIFICADOS RECONOCIMIENTOS ================= -->
+{% for r in reconocimientos %}
+{% if r.rutacertificado %}
+<div class="page-break"></div>
+<div class="cert-page">
+    <h2>Certificado / Reconocimiento</h2>
+    <img src="{{ r.rutacertificado }}">
+</div>
+{% endif %}
+{% endfor %}
 
 </body>
 </html>
