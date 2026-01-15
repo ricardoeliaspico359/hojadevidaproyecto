@@ -50,17 +50,21 @@ class ExperienciaLaboralAdmin(admin.ModelAdmin):
         'activarparaqueseveaenfront'
     )
 
-    list_filter = (
-        'activarparaqueseveaenfront',
-        'nombrempresa'
-    )
-
-    search_fields = (
+    fields = (
+        'perfil',
         'cargodesempenado',
         'nombrempresa',
-        'lugarempresa'
+        'lugarempresa',
+        'fechainiciogestion',
+        'fechafingestion',
+        'descripcionfunciones',
+        'emailempresa',
+        'sitiowebempresa',
+        'nombrecontactoempresarial',
+        'telefonocontactoempresarial',
+        'rutacertificado',   # 👈 AQUÍ
+        'activarparaqueseveaenfront'
     )
-
 
 # =========================
 # RECONOCIMIENTOS
