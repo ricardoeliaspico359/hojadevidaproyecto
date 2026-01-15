@@ -22,53 +22,60 @@
             <div class="col-md-7">
                 <p><strong>Duración:</strong> {{ curso.fechainicio }} {% if curso.fechafin %} - {{ curso.fechafin }}{% endif %}</p>
                 <p><strong>Total horas:</strong> {{ curso.totalhoras }}</p>
-                {% if curso.entidadpatrocinadora %}<p><strong>Entidad:</strong> {{ curso.entidadpatrocinadora }}</p>{% endif %}
+                {% if curso.entidadpatrocinadora %}
+                    <p><strong>Entidad:</strong> {{ curso.entidadpatrocinadora }}</p>
+                {% endif %}
 
-                {% if curso.nombrecontactoauspicia %}<p><strong>Contacto:</strong> {{ curso.nombrecontactoauspicia }}</p>{% endif %}
-                {% if curso.telefonocontactoauspicia %}<p><strong>Teléfono:</strong> {{ curso.telefonocontactoauspicia }}</p>{% endif %}
-                {% if curso.emailempresapatrocinadora %}<p><strong>Email:</strong> {{ curso.emailempresapatrocinadora }}</p>{% endif %}
+                {% if curso.nombrecontactoauspicia %}
+                    <p><strong>Contacto:</strong> {{ curso.nombrecontactoauspicia }}</p>
+                {% endif %}
+                {% if curso.telefonocontactoauspicia %}
+                    <p><strong>Teléfono:</strong> {{ curso.telefonocontactoauspicia }}</p>
+                {% endif %}
+                {% if curso.emailempresapatrocinadora %}
+                    <p><strong>Email:</strong> {{ curso.emailempresapatrocinadora }}</p>
+                {% endif %}
             </div>
 
             <!-- ===== COLUMNA DERECHA (CERTIFICADO) ===== -->
             <div class="col-md-5 border-start text-center">
 
                 {% if curso.rutacertificado %}
-                <p class="text-muted small mb-2">Certificado:</p>
+                    <p class="text-muted small mb-2">Certificado:</p>
 
-                <a href="{{ curso.rutacertificado }}" target="_blank">
-                    <img 
-                        src="{{ curso.rutacertificado }}" 
-                        alt="Certificado del curso"
-                        style="max-width: 100%; max-height: 180px; border-radius: 8px; border: 1px solid #ddd;"
-                    >
-                </a>
-
-                <!-- ===== BOTONES ===== -->
-                <div class="mt-3 d-flex flex-column gap-2">
-
-                    <!-- Ver en grande -->
-                    <a href="{{ curso.rutacertificado }}" target="_blank" class="btn btn-sm btn-primary">
-                        🔍 Ver certificado en grande
+                    <a href="{{ curso.rutacertificado }}" target="_blank">
+                        <img 
+                            src="{{ curso.rutacertificado }}" 
+                            alt="Certificado del curso"
+                            style="max-width: 100%; max-height: 180px; border-radius: 8px; border: 1px solid #ddd;"
+                        >
                     </a>
 
-                    <!-- Cambiar certificado -->
-                    <a href="{% url 'editar_certificado_curso' curso.id %}" class="btn btn-sm btn-outline-secondary">
-                        🔄 Cambiar certificado
-                    </a>
+                    <!-- ===== BOTONES ===== -->
+                    <div class="mt-3 d-flex flex-column gap-2">
 
-                    <!-- Borrar certificado -->
-                    <a href="{% url 'eliminar_certificado_curso' curso.id %}" 
-                       class="btn btn-sm btn-outline-danger"
-                       onclick="return confirm('¿Seguro que deseas borrar este certificado?');">
-                        🗑️ Borrar certificado
-                    </a>
+                        <!-- Ver en grande -->
+                        <a href="{{ curso.rutacertificado }}" target="_blank" class="btn btn-sm btn-primary">
+                            🔍 Ver certificado en grande
+                        </a>
 
-                </div>
+                        <!-- Cambiar certificado -->
+                        <a href="{% url 'editar_certificado_curso' curso.id %}" class="btn btn-sm btn-outline-secondary">
+                            🔄 Cambiar certificado
+                        </a>
 
+                        <!-- Borrar certificado -->
+                        <a href="{% url 'eliminar_certificado_curso' curso.id %}"
+                           class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('¿Seguro que deseas borrar este certificado?');">
+                            🗑️ Borrar certificado
+                        </a>
+
+                    </div>
                 {% else %}
-                <div class="alert alert-light border py-2 px-2 small mt-2">
-                    ⚠️ No hay certificado cargado aún.
-                </div>
+                    <div class="alert alert-light border py-2 px-2 small mt-2">
+                        ⚠️ No hay certificado cargado aún.
+                    </div>
                 {% endif %}
 
             </div>
