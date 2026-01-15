@@ -27,11 +27,11 @@
                 </p>
                 {% endif %}
 
-                <!-- DATOS EN DOS COLUMNAS -->
+                <!-- DATOS + CERTIFICADO EN DOS COLUMNAS -->
                 <div class="row">
 
-                    <!-- IZQUIERDA -->
-                    <div class="col-md-6">
+                    <!-- IZQUIERDA (DATOS) -->
+                    <div class="col-md-7">
                         <p class="mb-2">
                             <strong>Fecha del reconocimiento:</strong><br>
                             {{ r.fechareconocimiento }}
@@ -43,10 +43,7 @@
                             {{ r.entidadpatrocinadora }}
                         </p>
                         {% endif %}
-                    </div>
 
-                    <!-- LÍNEA DIVISORIA -->
-                    <div class="col-md-6 border-start ps-4">
                         {% if r.nombrecontactoauspicia %}
                         <p class="mb-2">
                             <strong>Nombre del contacto que auspicia:</strong><br>
@@ -62,23 +59,34 @@
                         {% endif %}
                     </div>
 
+                    <!-- DERECHA (CERTIFICADO) -->
+                    <div class="col-md-5 border-start text-center">
+
+                        {% if r.rutacertificado %}
+                            <p class="text-muted small mb-2">
+                                Certificado / Diploma:
+                            </p>
+
+                            <a href="{{ r.rutacertificado }}" target="_blank">
+                                <img
+                                    src="{{ r.rutacertificado }}"
+                                    alt="Certificado del reconocimiento"
+                                    style="max-width: 100%; max-height: 260px;"
+                                    class="rounded border"
+                                >
+                            </a>
+
+                            <!-- BOTÓN -->
+                            <div class="mt-3">
+                                <a href="{{ r.rutacertificado }}" target="_blank" class="btn btn-sm btn-primary">
+                                    🔍 Ver certificado en grande
+                                </a>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
                 </div>
-
-                <!-- CERTIFICADO / DIPLOMA -->
-                {% if r.rutacertificado %}
-                <hr class="my-3">
-
-                <p class="mb-2">
-                    <strong>Certificado / Diploma:</strong>
-                </p>
-
-                <img
-                    src="{{ r.rutacertificado }}"
-                    alt="Certificado del reconocimiento"
-                    class="img-fluid rounded border"
-                    style="max-width: 400px;"
-                >
-                {% endif %}
 
             </div>
         </div>
