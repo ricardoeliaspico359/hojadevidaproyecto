@@ -66,7 +66,7 @@ class ExperienciaLaboral(models.Model):
     descripcionfunciones = models.CharField(max_length=100, blank=True)
 
     activarparaqueseveaenfront = models.BooleanField(default=True)
-    rutacertificado = models.CharField(max_length=100, blank=True)
+    rutacertificado = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
         return self.cargodesempenado
