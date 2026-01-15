@@ -59,18 +59,6 @@
                             🔍 Ver certificado en grande
                         </a>
 
-                        <!-- Cambiar certificado -->
-                        <a href="{% url 'editar_certificado_curso' curso.id %}" class="btn btn-sm btn-outline-secondary">
-                            🔄 Cambiar certificado
-                        </a>
-
-                        <!-- Borrar certificado -->
-                        <a href="{% url 'eliminar_certificado_curso' curso.id %}"
-                           class="btn btn-sm btn-outline-danger"
-                           onclick="return confirm('¿Seguro que deseas borrar este certificado?');">
-                            🗑️ Borrar certificado
-                        </a>
-
                     </div>
                 {% else %}
                     <div class="alert alert-light border py-2 px-2 small mt-2">
