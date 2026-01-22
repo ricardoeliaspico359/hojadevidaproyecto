@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 # ===============================
 # DATOS PERSONALES
@@ -40,6 +42,21 @@ class DatosPersonales(models.Model):
 
     sitioweb = models.URLField(max_length=60, blank=True)
 
+    def clean(self):
+        super().clean()
+        hoy = timezone.localdate()
+
+        # ❌ No permitir fecha de nacimiento futura
+        if self.fechanacimiento and self.fechanacimiento > hoy:
+            raise ValidationError({
+                "fechanacimiento": "La fecha de nacimiento no puede ser futura."
+            })
+
+    def save(self, *args, **kwargs):
+        # Esto hace que la validación funcione también desde el admin
+        self.full_clean()
+        return super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.nombres} {self.apellidos}"
 
@@ -68,6 +85,32 @@ class ExperienciaLaboral(models.Model):
     activarparaqueseveaenfront = models.BooleanField(default=True)
     rutacertificado = models.CharField(max_length=120, blank=True)
 
+    def clean(self):
+        super().clean()
+        hoy = timezone.localdate()
+
+        # ❌ No permitir fecha de inicio futura
+        if self.fechainiciogestion and self.fechainiciogestion > hoy:
+            raise ValidationError({
+                "fechainiciogestion": "La fecha de inicio no puede ser futura."
+            })
+
+        # ❌ No permitir fecha de fin futura
+        if self.fechafingestion and self.fechafingestion > hoy:
+            raise ValidationError({
+                "fechafingestion": "La fecha de fin no puede ser futura."
+            })
+
+        # ❌ No permitir fecha fin menor que inicio
+        if self.fechainiciogestion and self.fechafingestion:
+            if self.fechafingestion < self.fechainiciogestion:
+                raise ValidationError({
+                    "fechafingestion": "La fecha de fin no puede ser menor que la fecha de inicio."
+                })
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.cargodesempenado
@@ -100,6 +143,20 @@ class Reconocimiento(models.Model):
     activarparaqueseveaenfront = models.BooleanField(default=True)
     rutacertificado = models.CharField(max_length=120, blank=True)
 
+    def clean(self):
+        super().clean()
+        hoy = timezone.localdate()
+
+        # ❌ No permitir fecha futura
+        if self.fechareconocimiento and self.fechareconocimiento > hoy:
+            raise ValidationError({
+                "fechareconocimiento": "La fecha de reconocimiento no puede ser futura."
+            })
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
+
     def __str__(self):
         return self.tiporeconocimiento
 
@@ -124,8 +181,37 @@ class CursoRealizado(models.Model):
 
     activarparaqueseveaenfront = models.BooleanField(default=True)
 
+    def clean(self):
+        super().clean()
+        hoy = timezone.localdate()
+
+        # ❌ No permitir fecha de inicio futura
+        if self.fechainicio and self.fechainicio > hoy:
+            raise ValidationError({
+                "fechainicio": "La fecha de inicio no puede ser futura."
+            })
+
+        # ❌ No permitir fecha fin futura
+        if self.fechafin and self.fechafin > hoy:
+            raise ValidationError({
+                "fechafin": "La fecha de fin no puede ser futura."
+            })
+
+        # ❌ No permitir fecha fin menor que inicio
+        if self.fechainicio and self.fechafin:
+            if self.fechafin < self.fechainicio:
+                raise ValidationError({
+                    "fechafin": "La fecha de fin no puede ser menor que la fecha de inicio."
+                })
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
+
     def __str__(self):
         return self.nombrecurso
+
+
 # ===============================
 # PRODUCTOS ACADÉMICOS
 # ===============================
@@ -159,6 +245,20 @@ class ProductoLaboral(models.Model):
     descripcion = models.CharField(max_length=100, blank=True)
 
     activarparaqueseveaenfront = models.BooleanField(default=True)
+
+    def clean(self):
+        super().clean()
+        hoy = timezone.localdate()
+
+        # ❌ No permitir fecha futura
+        if self.fechaproducto and self.fechaproducto > hoy:
+            raise ValidationError({
+                "fechaproducto": "La fecha del producto no puede ser futura."
+            })
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.nombreproducto
