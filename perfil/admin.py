@@ -16,26 +16,48 @@ from .models import (
 @admin.register(DatosPersonales)
 class DatosPersonalesAdmin(admin.ModelAdmin):
     list_display = ('nombres', 'apellidos', 'numerocedula')
-    fields = (
-        'user',
-        'descripcionperfil',
-        'perfilactivo',
-        'apellidos',
-        'nombres',
-        'foto_url',   # 👈 AQUÍ
-        'nacionalidad',
-        'lugarnacimiento',
-        'fechanacimiento',
-        'numerocedula',
-        'sexo',
-        'estadocivil',
-        'licenciaconducir',
-        'telefonoconvencional',
-        'telefonofijo',
-        'direcciontrabajo',
-        'direcciondomiciliaria',
-        'sitioweb',
+
+    fieldsets = (
+        ('Información del usuario', {
+            'fields': (
+                'user',
+                'descripcionperfil',
+                'perfilactivo',
+            )
+        }),
+
+        ('Datos personales', {
+            'fields': (
+                'apellidos',
+                'nombres',
+                'foto_url',
+                'nacionalidad',
+                'lugarnacimiento',
+                'fechanacimiento',
+                'numerocedula',
+                'sexo',
+                'estadocivil',
+                'licenciaconducir',
+                'telefonoconvencional',
+                'telefonofijo',
+                'direcciontrabajo',
+                'direcciondomiciliaria',
+                'sitioweb',
+            )
+        }),
+
+        ('Visibilidad en Dashboard y PDF', {
+            'fields': (
+                'mostrar_experiencia',
+                'mostrar_cursos',
+                'mostrar_reconocimientos',
+                'mostrar_productos_academicos',
+                'mostrar_productos_laborales',
+                'mostrar_venta_garage',
+            )
+        }),
     )
+
 # =========================
 # EXPERIENCIA LABORAL
 # =========================
