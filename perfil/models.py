@@ -267,6 +267,10 @@ class ProductoLaboral(models.Model):
 # ===============================
 # VENTA GARAGE
 # ===============================
+from django.db import models
+from django.core.exceptions import ValidationError
+from django.utils import timezone
+
 class VentaGarage(models.Model):
     ESTADO_PRODUCTO = [
         ('Bueno', 'Bueno'),
@@ -276,27 +280,34 @@ class VentaGarage(models.Model):
     perfil = models.ForeignKey(DatosPersonales, on_delete=models.CASCADE)
 
     nombreproducto = models.CharField(max_length=100)
+
     estadoproducto = models.CharField(
         max_length=40,
         choices=ESTADO_PRODUCTO
     )
 
     descripcion = models.CharField(max_length=100, blank=True)
+
     valordelbien = models.DecimalField(max_digits=5, decimal_places=2)
 
-    # ✅ NUEVO: Foto del producto con Cloudinary
-    foto_producto = CloudinaryField(
-        'foto_producto',
+    # ✅ NUEVO: URL de imagen (Cloudinary)
+    url_foto_producto = models.URLField(
         blank=True,
-        null=True
+        null=True,
+        help_text="Pega aquí el link de la imagen subida en Cloudinary"
     )
 
     # ✅ NUEVO: Fecha de publicación
-    fechapublicacion = models.DateField(
-        default=timezone.now
-    )
+    fechapublicacion = models.DateField()
 
     activarparaqueseveaenfront = models.BooleanField(default=True)
+
+    # ✅ VALIDACIÓN DE FECHA
+    def clean(self):
+        if self.fechapublicacion > timezone.now().date():
+            raise ValidationError({
+                'fechapublicacion': 'La fecha de publicación no puede ser futura.'
+            })
 
     def __str__(self):
         return self.nombreproducto

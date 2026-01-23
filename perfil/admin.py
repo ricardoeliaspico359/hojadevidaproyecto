@@ -192,16 +192,19 @@ class ProductoLaboralAdmin(admin.ModelAdmin):
 # =========================
 # VENTA GARAGE
 # =========================
+from django.contrib import admin
+from .models import VentaGarage
+
 @admin.register(VentaGarage)
 class VentaGarageAdmin(admin.ModelAdmin):
+
     list_display = (
         'perfil',
         'nombreproducto',
         'estadoproducto',
         'valordelbien',
         'fechapublicacion',
-        'activarparaqueseveaenfront',
-        'ver_foto'
+        'activarparaqueseveaenfront'
     )
 
     list_filter = (
@@ -214,28 +217,28 @@ class VentaGarageAdmin(admin.ModelAdmin):
         'nombreproducto',
     )
 
-    readonly_fields = ('preview_foto',)
+    ordering = ('-fechapublicacion',)
 
-    fields = (
-        'perfil',
-        'nombreproducto',
-        'estadoproducto',
-        'descripcion',
-        'valordelbien',
-        'fechapublicacion',
-        'foto_producto',
-        'preview_foto',
-        'activarparaqueseveaenfront',
+    fieldsets = (
+        ('Información del producto', {
+            'fields': (
+                'perfil',
+                'nombreproducto',
+                'descripcion',
+                'estadoproducto',
+                'valordelbien',
+            )
+        }),
+        ('Imagen y publicación', {
+            'fields': (
+                'url_foto_producto',
+                'fechapublicacion',
+            )
+        }),
+        ('Visibilidad', {
+            'fields': (
+                'activarparaqueseveaenfront',
+            )
+        }),
     )
 
-    def ver_foto(self, obj):
-        return "Sí" if obj.foto_producto else "No"
-    ver_foto.short_description = "Foto"
-
-    def preview_foto(self, obj):
-        if obj.foto_producto:
-            return mark_safe(
-                f'<img src="{obj.foto_producto.url}" style="max-width:200px; border:1px solid #ccc; border-radius:8px;" />'
-            )
-        return "No cargada"
-    preview_foto.short_description = "Vista previa"
