@@ -199,14 +199,43 @@ class VentaGarageAdmin(admin.ModelAdmin):
         'nombreproducto',
         'estadoproducto',
         'valordelbien',
-        'activarparaqueseveaenfront'
+        'fechapublicacion',
+        'activarparaqueseveaenfront',
+        'ver_foto'
     )
 
     list_filter = (
         'estadoproducto',
-        'activarparaqueseveaenfront'
+        'activarparaqueseveaenfront',
+        'fechapublicacion'
     )
 
     search_fields = (
         'nombreproducto',
     )
+
+    readonly_fields = ('preview_foto',)
+
+    fields = (
+        'perfil',
+        'nombreproducto',
+        'estadoproducto',
+        'descripcion',
+        'valordelbien',
+        'fechapublicacion',
+        'foto_producto',
+        'preview_foto',
+        'activarparaqueseveaenfront',
+    )
+
+    def ver_foto(self, obj):
+        return "Sí" if obj.foto_producto else "No"
+    ver_foto.short_description = "Foto"
+
+    def preview_foto(self, obj):
+        if obj.foto_producto:
+            return mark_safe(
+                f'<img src="{obj.foto_producto.url}" style="max-width:200px; border:1px solid #ccc; border-radius:8px;" />'
+            )
+        return "No cargada"
+    preview_foto.short_description = "Vista previa"

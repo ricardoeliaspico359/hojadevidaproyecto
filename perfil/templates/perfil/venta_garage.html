@@ -18,15 +18,44 @@
                     {{ p.nombreproducto }}
                 </h5>
 
+                <!-- FOTO DEL PRODUCTO -->
+                {% if p.foto_producto %}
+                <div class="text-center mb-3">
+                    <img 
+                        src="{{ p.foto_producto.url }}" 
+                        alt="Foto del producto"
+                        class="img-fluid rounded shadow-sm"
+                        style="max-height: 220px; object-fit: cover;"
+                    >
+                </div>
+                {% endif %}
+
                 {% if p.descripcion %}
                 <p class="card-text">{{ p.descripcion }}</p>
                 {% endif %}
 
                 <p>
-                    <span class="badge bg-secondary">
-                        {{ p.estadoproducto }}
-                    </span>
+                    {% if p.estadoproducto == "Bueno" %}
+                        <span class="badge bg-primary">
+                            {{ p.estadoproducto }}
+                        </span>
+                    {% elif p.estadoproducto == "Regular" %}
+                        <span class="badge bg-warning text-dark">
+                            {{ p.estadoproducto }}
+                        </span>
+                    {% else %}
+                        <span class="badge bg-secondary">
+                            {{ p.estadoproducto }}
+                        </span>
+                    {% endif %}
                 </p>
+
+                <!-- FECHA DE PUBLICACIÓN -->
+                {% if p.fechapublicacion %}
+                <p class="text-muted small mb-2">
+                    <strong>Publicado:</strong> {{ p.fechapublicacion }}
+                </p>
+                {% endif %}
 
                 <p>
                     <strong>Precio:</strong> ${{ p.valordelbien }}

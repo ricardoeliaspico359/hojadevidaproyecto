@@ -284,6 +284,18 @@ class VentaGarage(models.Model):
     descripcion = models.CharField(max_length=100, blank=True)
     valordelbien = models.DecimalField(max_digits=5, decimal_places=2)
 
+    # ✅ NUEVO: Foto del producto con Cloudinary
+    foto_producto = CloudinaryField(
+        'foto_producto',
+        blank=True,
+        null=True
+    )
+
+    # ✅ NUEVO: Fecha de publicación
+    fechapublicacion = models.DateField(
+        default=timezone.now
+    )
+
     activarparaqueseveaenfront = models.BooleanField(default=True)
 
     def __str__(self):
