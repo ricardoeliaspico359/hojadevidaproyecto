@@ -42,6 +42,14 @@ class DatosPersonales(models.Model):
 
     sitioweb = models.URLField(max_length=60, blank=True)
 
+    # ✅ NUEVO: Interruptores para mostrar/ocultar secciones
+    mostrar_experiencia_laboral = models.BooleanField(default=True)
+    mostrar_cursos_realizados = models.BooleanField(default=True)
+    mostrar_reconocimientos = models.BooleanField(default=True)
+    mostrar_productos_academicos = models.BooleanField(default=True)
+    mostrar_productos_laborales = models.BooleanField(default=True)
+    mostrar_venta_garage = models.BooleanField(default=True)
+
     def clean(self):
         super().clean()
         hoy = timezone.localdate()
@@ -59,7 +67,6 @@ class DatosPersonales(models.Model):
 
     def __str__(self):
         return f"{self.nombres} {self.apellidos}"
-
 
 # ===============================
 # EXPERIENCIA LABORAL
@@ -267,10 +274,6 @@ class ProductoLaboral(models.Model):
 # ===============================
 # VENTA GARAGE
 # ===============================
-from django.db import models
-from django.core.exceptions import ValidationError
-from django.utils import timezone
-
 class VentaGarage(models.Model):
     ESTADO_PRODUCTO = [
         ('Bueno', 'Bueno'),

@@ -164,6 +164,24 @@
     .dashboard-card:nth-child(6) { animation-delay: 0.6s; }
     .dashboard-card:nth-child(7) { animation-delay: 0.7s; }
 
+    /* ===========================
+       BOTÓN X OCULTAR
+    ============================ */
+    .btn-ocultar-seccion {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        z-index: 10;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        line-height: 1;
+    }
 </style>
 
 <h2 class="mb-4 text-center page-title">Mi Hoja de Vida</h2>
@@ -180,6 +198,7 @@
 <div class="glow-panel">
     <div class="row g-4">
 
+        <!-- DATOS PERSONALES (NO SE OCULTA) -->
         <div class="col-md-6 col-lg-4">
             <a href="{% url 'datos_personales' %}" class="text-decoration-none">
                 <div class="card shadow h-100 text-center p-4 dashboard-card">
@@ -189,7 +208,16 @@
             </a>
         </div>
 
-        <div class="col-md-6 col-lg-4">
+        <!-- EXPERIENCIA LABORAL -->
+        {% if perfil.mostrar_experiencia_laboral %}
+        <div class="col-md-6 col-lg-4 position-relative">
+
+            <a href="{% url 'ocultar_seccion_dashboard' 'experiencia' %}"
+               class="btn btn-sm btn-danger btn-ocultar-seccion"
+               title="Ocultar sección">
+                ✖
+            </a>
+
             <a href="{% url 'experiencia_laboral' %}" class="text-decoration-none">
                 <div class="card shadow h-100 text-center p-4 dashboard-card">
                     <h1>💼</h1>
@@ -197,8 +225,18 @@
                 </div>
             </a>
         </div>
+        {% endif %}
 
-        <div class="col-md-6 col-lg-4">
+        <!-- CURSOS REALIZADOS -->
+        {% if perfil.mostrar_cursos_realizados %}
+        <div class="col-md-6 col-lg-4 position-relative">
+
+            <a href="{% url 'ocultar_seccion_dashboard' 'cursos' %}"
+               class="btn btn-sm btn-danger btn-ocultar-seccion"
+               title="Ocultar sección">
+                ✖
+            </a>
+
             <a href="{% url 'cursos' %}" class="text-decoration-none">
                 <div class="card shadow h-100 text-center p-4 dashboard-card">
                     <h1>🎓</h1>
@@ -206,8 +244,18 @@
                 </div>
             </a>
         </div>
+        {% endif %}
 
-        <div class="col-md-6 col-lg-4">
+        <!-- RECONOCIMIENTOS -->
+        {% if perfil.mostrar_reconocimientos %}
+        <div class="col-md-6 col-lg-4 position-relative">
+
+            <a href="{% url 'ocultar_seccion_dashboard' 'reconocimientos' %}"
+               class="btn btn-sm btn-danger btn-ocultar-seccion"
+               title="Ocultar sección">
+                ✖
+            </a>
+
             <a href="{% url 'reconocimientos' %}" class="text-decoration-none">
                 <div class="card shadow h-100 text-center p-4 dashboard-card">
                     <h1>🏆</h1>
@@ -215,8 +263,18 @@
                 </div>
             </a>
         </div>
+        {% endif %}
 
-        <div class="col-md-6 col-lg-4">
+        <!-- PRODUCTOS ACADÉMICOS -->
+        {% if perfil.mostrar_productos_academicos %}
+        <div class="col-md-6 col-lg-4 position-relative">
+
+            <a href="{% url 'ocultar_seccion_dashboard' 'productos_academicos' %}"
+               class="btn btn-sm btn-danger btn-ocultar-seccion"
+               title="Ocultar sección">
+                ✖
+            </a>
+
             <a href="{% url 'productos_academicos' %}" class="text-decoration-none">
                 <div class="card shadow h-100 text-center p-4 dashboard-card">
                     <h1>📘</h1>
@@ -224,8 +282,18 @@
                 </div>
             </a>
         </div>
+        {% endif %}
 
-        <div class="col-md-6 col-lg-4">
+        <!-- PRODUCTOS LABORALES -->
+        {% if perfil.mostrar_productos_laborales %}
+        <div class="col-md-6 col-lg-4 position-relative">
+
+            <a href="{% url 'ocultar_seccion_dashboard' 'productos_laborales' %}"
+               class="btn btn-sm btn-danger btn-ocultar-seccion"
+               title="Ocultar sección">
+                ✖
+            </a>
+
             <a href="{% url 'productos_laborales' %}" class="text-decoration-none">
                 <div class="card shadow h-100 text-center p-4 dashboard-card">
                     <h1>🛠️</h1>
@@ -233,8 +301,18 @@
                 </div>
             </a>
         </div>
+        {% endif %}
 
-        <div class="col-md-12">
+        <!-- VENTA GARAGE -->
+        {% if perfil.mostrar_venta_garage %}
+        <div class="col-md-12 position-relative">
+
+            <a href="{% url 'ocultar_seccion_dashboard' 'venta_garage' %}"
+               class="btn btn-sm btn-danger btn-ocultar-seccion"
+               title="Ocultar sección">
+                ✖
+            </a>
+
             <a href="{% url 'venta_garage' %}" class="text-decoration-none">
                 <div class="card shadow h-100 text-center p-4 dashboard-card bg-light">
                     <h1>🛒</h1>
@@ -242,6 +320,7 @@
                 </div>
             </a>
         </div>
+        {% endif %}
 
     </div>
 </div>

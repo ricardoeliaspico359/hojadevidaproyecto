@@ -154,6 +154,7 @@ td {
 
 <td class="right">
 
+{% if perfil.mostrar_experiencia_laboral %}
 <div class="section-title">Experiencia Laboral</div>
 {% for e in experiencias %}
 <div class="block">
@@ -195,7 +196,9 @@ td {
 {% empty %}
 <div>No registra experiencia laboral</div>
 {% endfor %}
+{% endif %}
 
+{% if perfil.mostrar_cursos_realizados %}
 <div class="section-title">Cursos Realizados</div>
 {% for c in cursos %}
 <div class="block">
@@ -230,6 +233,7 @@ td {
 {% empty %}
 <div>No registra cursos</div>
 {% endfor %}
+{% endif %}
 
 </td>
 </tr>
@@ -274,6 +278,7 @@ td {
 
 
 <!-- ================= RECONOCIMIENTOS ================= -->
+{% if perfil.mostrar_reconocimientos %}
 <div class="section-title">Reconocimientos</div>
 {% for r in reconocimientos %}
 <div class="block">
@@ -306,8 +311,10 @@ td {
 {% empty %}
 <div>No registra reconocimientos</div>
 {% endfor %}
+{% endif %}
 
 <!-- ================= PRODUCTOS ACADÉMICOS ================= -->
+{% if perfil.mostrar_productos_academicos %}
 <div class="section-title">Productos Académicos</div>
 {% for pa in prod_academicos %}
 <div class="block">
@@ -332,7 +339,10 @@ td {
 {% empty %}
 <div>No registra productos académicos</div>
 {% endfor %}
+{% endif %}
+
 <!-- ================= PRODUCTOS LABORALES ================= -->
+{% if perfil.mostrar_productos_laborales %}
 <div class="section-title">Productos Laborales</div>
 {% for pl in prod_laborales %}
 <div class="block">
@@ -342,8 +352,10 @@ td {
 {% empty %}
 <div>No registra productos laborales</div>
 {% endfor %}
+{% endif %}
 
 <!-- ================= VENTA GARAGE ================= -->
+{% if perfil.mostrar_venta_garage %}
 <div class="section-title">Venta Garage</div>
 {% for v in ventas %}
 <div class="block">
@@ -355,11 +367,14 @@ td {
 {% empty %}
 <div>No registra ventas</div>
 {% endfor %}
+{% endif %}
 
 </td>
 </tr>
 </table>
+
 <!-- ================= CERTIFICADOS CURSOS ================= -->
+{% if perfil.mostrar_cursos_realizados %}
 {% for c in cursos %}
 {% if c.rutacertificado %}
 <div class="page-break"></div>
@@ -369,8 +384,10 @@ td {
 </div>
 {% endif %}
 {% endfor %}
+{% endif %}
 
 <!-- ================= CERTIFICADOS RECONOCIMIENTOS ================= -->
+{% if perfil.mostrar_reconocimientos %}
 {% for r in reconocimientos %}
 {% if r.rutacertificado %}
 <div class="page-break"></div>
@@ -380,6 +397,7 @@ td {
 </div>
 {% endif %}
 {% endfor %}
+{% endif %}
 
 </body>
 </html>

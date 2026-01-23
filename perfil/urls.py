@@ -11,4 +11,5 @@ urlpatterns = [
     path('productos-academicos/', views.productos_academicos, name='productos_academicos'),
     path('productos-laborales/', views.productos_laborales, name='productos_laborales'),
     path('venta-garage/', views.venta_garage, name='venta_garage'),
+    path("dashboard/ocultar/<str:seccion>/", views.ocultar_seccion_dashboard, name="ocultar_seccion_dashboard"),
 ]

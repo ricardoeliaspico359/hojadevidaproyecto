@@ -195,3 +195,29 @@ def venta_garage(request):
         'perfil': perfil,
         'productos': productos
     })
+
+from django.shortcuts import redirect
+from django.contrib import messages
+
+def ocultar_seccion_dashboard(request, seccion):
+    perfil = obtener_perfil_activo()
+
+    # Mapa de secciones -> campo booleano
+    secciones = {
+        "experiencia": "mostrar_experiencia_laboral",
+        "cursos": "mostrar_cursos_realizados",
+        "reconocimientos": "mostrar_reconocimientos",
+        "productos_academicos": "mostrar_productos_academicos",
+        "productos_laborales": "mostrar_productos_laborales",
+        "venta_garage": "mostrar_venta_garage",
+    }
+
+    if seccion in secciones:
+        campo = secciones[seccion]
+        setattr(perfil, campo, False)
+        perfil.save()
+        messages.success(request, f"Sección '{seccion}' ocultada correctamente ✅")
+    else:
+        messages.error(request, "Sección no válida ❌")
+
+    return redirect("dashboard")
