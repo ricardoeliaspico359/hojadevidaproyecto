@@ -48,8 +48,8 @@ class DatosPersonalesAdmin(admin.ModelAdmin):
 
         ('Visibilidad en Dashboard y PDF', {
             'fields': (
-                'mostrar_experiencia',
-                'mostrar_cursos',
+                'mostrar_experiencia_laboral',
+                'mostrar_cursos_realizados',
                 'mostrar_reconocimientos',
                 'mostrar_productos_academicos',
                 'mostrar_productos_laborales',
